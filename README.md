@@ -15,6 +15,4 @@ pip install tictaccli
 Run the command after installing:
 ```
 tictactoe
-
 ```
-
