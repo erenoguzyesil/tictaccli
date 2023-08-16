@@ -19,7 +19,7 @@ tictactoe
 
 ## Other things you can do
 
-### `tictactoecli.Mark` and `tictactoecli.Board` classes
+### `tictactoecli.mark.Mark` and `tictactoecli.board.Board` classes
 
 The `Mark` class, which inherits the `Enum` class, has the following fields: `X, O, and NULL`
 
