@@ -5,12 +5,12 @@ A simple command-line Tic-Tac-Toe game played against the computer.
 ## Installation
 
 ```
-pip install tictactoecli
+pip install tictaccli
 ```
 
 ## Usage
 
-Run the command:
+Run the command after installing:
 ```
 tictactoe
 ```
