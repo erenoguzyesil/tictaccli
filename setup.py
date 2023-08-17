@@ -1,11 +1,20 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as f:
-    long_description = f.read()
+long_description = """# tictaccli
+A simple command-line Tic-Tac-Toe game played against the computer.
+
+## Usage
+
+Run the command below in Terminal:
+
+```
+tictactoe
+```
+"""
 
 setup(
     name='tictaccli',
-    version='1.0.0',
+    version='1.0.0.1',
     description='A simple Tic-Tac-Toe game in command-line.',
     long_description=long_description,
     long_description_content_type='text/markdown',
