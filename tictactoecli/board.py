@@ -2,7 +2,37 @@ from tictactoecli.mark import Mark
 import re
 
 class Board:
+    """
+    This class represents a Tic-Tac-Toe board, which holds its marks in the `positions` field of an instance.
+    """
     def __init__(self):
+        """
+        Initiates a new Tic-Tac-Toe board and `positions` and `winning_positions` fields.
+        
+        - `positions` is a 2-dimensional list of marks separated by rows.
+        - `winning_positions` is a list of `[row, column]` positions, where if each row-column position in an inner list corresponds to the same mark, it results in the win of the player of it.
+
+        ```
+        board = Board()
+
+        board.winning_positions
+        # ^ returns:
+        # Rows
+        [ [ [0, 0], [0, 1], [0, 2] ], 
+          [ [1, 0], [1, 1], [1, 2] ],
+          [ [2, 0], [2, 1], [2, 2] ], 
+              
+        # Columns
+          [ [0, 0], [1, 0], [2, 0] ], 
+          [ [0, 1], [1, 1], [2, 1] ],
+          [ [0, 2], [1, 2], [2, 2] ],
+          
+        # Diagonals
+          [ [0, 0], [1, 1], [2, 2] ],
+          [ [2, 0], [1, 1], [0, 2] ]
+        ]
+        ```
+        """
         self.positions = [[Mark.NULL] * 3 for _ in range(3)]
         # row | col: 0          1           2
         # 0:  [ [Mark.NULL, Mark.NULL, Mark.NULL] ],
@@ -27,13 +57,22 @@ class Board:
         self.winning_positions.append([[2, 0], [1, 1], [0, 2]])
 
     def place_mark(self, row_pos: int, col_pos: int, mark: Mark):
+        """
+        Sets a member of `Mark` in `positions` in the given `row_pos` (row index, max. 2) and `col_pos` (column index, max. 2) only if `row_pos` and `col_pos` indexes of `positions` are Mark.NULL (empty)
+        """
         if [row_pos, col_pos] in self.available_positions():
             self.positions[row_pos][col_pos] = mark
 
     def get_mark(self, row_pos: int, col_pos: int) -> Mark:
+        """
+        Returns the `Mark` in `row_pos` (row index, max. 2) and `col_pos` (column index, max. 2) of `positions`
+        """
         return self.positions[row_pos][col_pos]
 
     def check_win(self) -> Mark:
+        """
+        Checks whether the game has a winner and returns the winner's mark. If there is no winner or it is tie, then returns `Mark.NULL`
+        """
         for positions_list in self.winning_positions:
             marks_scanned = []
 
@@ -50,9 +89,15 @@ class Board:
         return Mark.NULL  # when no winner is detected
 
     def is_tie(self):
+        """
+        Returns `True` if the there are no empty positions and winner, otherwise `False`
+        """
         return len(self.available_positions()) == 0 and self.check_win() is Mark.NULL
 
     def available_positions(self):
+        """
+        Returns a list of [row, column] positions where `positions[row][col]` returns `Mark.NULL` (empty)
+        """
         result = []
 
         for row in range(3):
@@ -64,17 +109,17 @@ class Board:
 
     def positions_to_win(self, mark: Mark):
         """
-            Returns an array of [row, column] positions that can result in the instant win of the `mark`
+        Returns an array of [row, column] positions that can result in the instant win of the player of `mark`
 
-            Example:
-            ```
-            board.positions = 
-                [ [X,    X, NULL] ],
-                [ [X,    O, NULL] ],
-                [ [NULL, O, O] ]
+        Example:
+        ```
+        board.positions = 
+            [ [X,    X, NULL] ],
+            [ [X,    O, NULL] ],
+            [ [NULL, O, O] ]
 
-            board.positions_to_win(Mark.X) => [ [0, 2], [2, 0] ]
-            ```
+        board.positions_to_win(Mark.X) #=> [ [0, 2], [2, 0] ]
+        ```
         """
         result = []
 
